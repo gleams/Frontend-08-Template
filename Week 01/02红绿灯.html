@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .a{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+
+        }
+        .red{
+            background: red;
+        }
+        .green{
+            background: green;
+        }
+        .yellow{
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<div class="a red" id="light"></div>
+<script>
+
+    const light = document.getElementById('light');
+
+    function redLight() {
+        console.log('red');
+        light.classList.add('red');
+        light.classList.remove('yellow');
+        let ti = 1,timer;
+
+        timer = setInterval(function () {
+            if(ti>=6){
+                greenLight();
+                clearInterval(timer);
+                return;
+            }
+            ti++;
+        },1000)
+    }
+    function greenLight() {
+        let ti = 1,timer;
+        console.log('green');
+        light.classList.add('green');
+        light.classList.remove('red');
+        timer = setInterval(function () {
+
+
+            if(ti>=10){
+                clearInterval(timer);
+                yellowLight();
+                return;
+            }
+            ti++;
+
+        },1000)
+
+    }
+    function yellowLight() {
+        let ti = 1,timer;
+        console.log('yellow');
+        light.classList.add('yellow');
+        light.classList.remove('green');
+        timer = setInterval(function () {
+            if(ti>=2){
+                clearInterval(timer);
+                redLight();
+                return;
+            }
+            ti++;
+
+        },1000)
+    }
+
+
+redLight();
+
+</script>
+</body>
+</html>
