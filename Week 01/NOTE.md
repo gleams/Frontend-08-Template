@@ -64,7 +64,6 @@
 1. Promise
 1. async/await
 
-
 ---
 
 ### 5. 查看有多个HTML标签
@@ -72,10 +71,9 @@
 - [wahtwg](whatwg.org) 文档查询
 - 浏览器只要是HTMLElement的实例都是标签
     
-    ```js
-    Object.getOwnPropertyNames(window).filter((item)=>{return window[item].prototype instanceof HTMLElement})
-    ``` 
-
+```js
+Object.getOwnPropertyNames(window).filter((item)=>{return window[item].prototype instanceof HTMLElement})
+``` 
 
 ### 备注
 1. 学习方法
