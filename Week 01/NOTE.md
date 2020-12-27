@@ -57,14 +57,38 @@
    //          0,2,0,0
    //          2,0,0,0
    
-   
-      
-   
-   
 ```
 
+### 4. 实现异步操作
+1. 回调
+1. Promise
+1. async/await
 
 
+---
 
+### 5. 查看有多个HTML标签
+
+- [wahtwg](whatwg.org) 文档查询
+- 浏览器只要是HTMLElement的实例都是标签
+    
+    ```js
+    Object.getOwnPropertyNames(window).filter((item)=>{return window[item].prototype instanceof HTMLElement})
+    ``` 
+
+
+### 备注
+1. 学习方法
+   1. 最早出现的论文、杂志
+   2. 最初的实现案例
+2. 标准和文档
+   1. w3.org
+   2. developer.mozilla.org
+   3. developer.apple.com
+3. 大师
+   1. Tim Berners-Lee
+   2. Brendan Eich
+   3. Bjarne Stroustrup
+   
 
 
