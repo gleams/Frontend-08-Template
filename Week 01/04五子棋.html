@@ -41,7 +41,7 @@
             bottom: -40%;
             border-radius: 50%;
             cursor: pointer;
-            transition:all .1s;
+            transition: all .1s;
 
         }
 
@@ -337,7 +337,8 @@
 <script>
     let qizi = document.querySelectorAll('span');
     let color = 1;
-    let pattern = Array(...Array(14)).map(()=>Array(...Array(14)).map(()=>0)); // 定义 14*14的数组默认值为0
+    let pattern = Array(...Array(14)).map(() => Array(...Array(14)).map(() => 0)); // 定义 14*14的数组默认值为0
+    let isWin = false;
     qizi.forEach((el) => {
         el.addEventListener('click', function () {
             const _this = this;
@@ -345,30 +346,79 @@
             const y = _this.parentNode.cellIndex;
 
             // 如果已经有值结束事件。
-            if(pattern[x][y] !== 0){
+            if (pattern[x][y] !== 0) {
+                return;
+            }
+            if (isWin) {
+                if (3 - color === 1) { //上一步棋子
+                    alert('白子已胜');
+                }else{
+                    alert('黑子已胜');
+                }
                 return;
             }
             pattern[x][y] = color;
-            console.log('x',x);
-            console.log('y',y);
-            if(color===1){
+            console.log('x', x);
+            console.log('y', y);
+            if (color === 1) {
                 _this.classList.add('white');
-            }else{
+            } else {
                 _this.classList.add('black');
             }
             color = 3 - color;
-        },false)
+            check();
+        }, false)
     });
 
+    let sameNum = 0;
+    let count = 0;
 
+    function check() {
+        outer:for (let y = 0; y < pattern.length; y++) {
+            for (let x = 0; x < pattern[0].length; x++) {
+                if (count === 5 && sameNum !== 0) {
+                    isWin = true;
+                    break outer;
+                }
+                if (sameNum === pattern[y][x]) {
+                    count++
+                } else {
+                    sameNum = pattern[y][x];
+                    count = 1;
+                }
+            }
+        }
+        outer2:for(let y = 0;y < pattern.length;y++){
+            for (let x = 0; x < pattern[0].length; x++) {
+                if (count === 5 && sameNum !== 0) {
+                    isWin = true;
+                    break outer2;
+                }
+                if (sameNum === pattern[x][y]) {
+                    count++
+                } else {
+                    sameNum = pattern[x][y];
+                    count = 1;
+                }
+            }
+        }
+        outer3:for(let x = 0;x<pattern[0].length;x++){
+            for(let y = x;y>0;y--){
+                if (count === 5 && sameNum !== 0) {
+                    isWin = true;
+                    break outer3;
+                }
+                if (sameNum === pattern[y][x-y]) {
+                    count++
+                } else {
+                    sameNum = pattern[y][x-y];
+                    count = 1;
+                }
+            }
+        }
 
-
-
-    function userMove(x, y) {
-        pattern[x][y] = color;
-        color = 3 - color;
-        show();
     }
+
 
 </script>
 </body>
