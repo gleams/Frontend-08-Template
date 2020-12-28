@@ -388,27 +388,33 @@
 
         outer3:for(let x = 0;x<pattern.length;x++){
             for(let y = x;y >= 0;y--){
-                console.log('x',y);
-                console.log('y',x-y);
-                console.log('aaa',aaa++);
-
                 if (count === 5 && sameNum !== 0) {
                     isWin = true;
                     break outer3;
                 }
                 if (sameNum === pattern[y][Math.abs(x-y)] && sameNum !== 0) {
-
                     count++;
-                    console.log('--------------');
-                    console.log('sameNum',pattern[y][Math.abs(x-y)]);
-                    console.log('count',count);
-                    console.log('===============');
                 } else {
                     sameNum = pattern[y][Math.abs(x-y)];
                     count = 1;
                 }
             }
         }
+        outer4:for(let x = 0;x<pattern.length-1;x++){
+            for(let y = x;y >= 0;y--){
+                if (count === 5 && sameNum !== 0) {
+                    isWin = true;
+                    break outer4;
+                }
+                if (sameNum === pattern[y][Math.abs(x-y+1)] && sameNum !== 0) {
+                    count++;
+                } else {
+                    sameNum = pattern[y][Math.abs(x-y+1)];
+                    count = 1;
+                }
+            }
+        }
+
 
     }
 
