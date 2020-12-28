@@ -400,16 +400,16 @@
                 }
             }
         }
-        outer4:for(let x = 0;x<pattern.length-1;x++){
-            for(let y = x;y >= 0;y--){
+        outer4:for(let x = pattern.length - 1;x>0;x--){
+            for(let y = pattern.length - x;y < pattern.length;y++){
                 if (count === 5 && sameNum !== 0) {
                     isWin = true;
                     break outer4;
                 }
-                if (sameNum === pattern[y][Math.abs(x-y+1)] && sameNum !== 0) {
+                if (sameNum === pattern[y][Math.abs(x-y)] && sameNum !== 0) {
                     count++;
                 } else {
-                    sameNum = pattern[y][Math.abs(x-y+1)];
+                    sameNum = pattern[y][Math.abs(x-y)];
                     count = 1;
                 }
             }
