@@ -298,23 +298,6 @@
             <td></td>
         </tr>
         <tr>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td></td>
-        </tr>
-        <tr>
             <td></td>
             <td></td>
             <td></td>
@@ -358,8 +341,8 @@
                 return;
             }
             pattern[x][y] = color;
-            console.log('x', x);
-            console.log('y', y);
+            // console.log('x', x);
+            // console.log('y', y);
             if (color === 1) {
                 _this.classList.add('white');
             } else {
@@ -402,16 +385,26 @@
                 }
             }
         }
-        outer3:for(let x = 0;x<pattern[0].length;x++){
-            for(let y = x;y>0;y--){
+
+        outer3:for(let x = 0;x<pattern.length;x++){
+            for(let y = x;y >= 0;y--){
+                console.log('x',y);
+                console.log('y',x-y);
+                console.log('aaa',aaa++);
+
                 if (count === 5 && sameNum !== 0) {
                     isWin = true;
                     break outer3;
                 }
-                if (sameNum === pattern[y][x-y]) {
-                    count++
+                if (sameNum === pattern[y][Math.abs(x-y)] && sameNum !== 0) {
+
+                    count++;
+                    console.log('--------------');
+                    console.log('sameNum',pattern[y][Math.abs(x-y)]);
+                    console.log('count',count);
+                    console.log('===============');
                 } else {
-                    sameNum = pattern[y][x-y];
+                    sameNum = pattern[y][Math.abs(x-y)];
                     count = 1;
                 }
             }
