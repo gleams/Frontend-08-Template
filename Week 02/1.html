@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .cell {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            line-height: 6px;
+            background-color: gray;
+            border-bottom: 1px solid white;
+            border-right: 1px solid white;
+            vertical-align: middle;
+
+        }
+
+        #container {
+            width: 701px;
+            font-size: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
+<script>
+    let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0);
+    let container = document.getElementById('container');
+    let mousedown = false;
+    let clear = false;
+
+    for (let y = 0; y < 100; y++) {
+        for (let x = 0; x < 100; x++) {
+            let cell = document.createElement('div');
+            cell.classList.add('cell');
+
+            // 1表示墙，0表示空
+            if (map[100 * y + x] == 1) {
+                cell.style.backgroundColor = 'black';
+            }
+
+            cell.addEventListener('mousemove', () => {
+                if (mousedown) {
+                    cell.style.backgroundColor = '';
+                    map[100 * y + x] = 0;
+                } else {
+                    cell.style.backgroundColor = 'black';
+                    map[100 * y + x] = 1;
+                }
+            });
+            container.appendChild(cell);
+        }
+    }
+
+
+    /**
+     *
+     * @param map
+     * @param start
+     * @param end
+     * @returns {boolean}
+     */
+    function path(map, start, end) {
+        var queue = [start];
+
+        function insert(x, y) {
+            //四个边
+            if (x < 0 || x >= 100 || y < 0 || y >= 100)
+                return;
+
+            //如果是墙
+            if (map[y * 100 + x])
+                return;
+            //走过的状态改为2
+            map[y * 100 + x] = 2;
+
+
+            /**
+             * push shift 广度优化
+             * push pop 深度优化
+             *
+             */
+            queue.push([x, y]);
+
+
+        }
+
+        while (queue.length) {
+            let [x, y] = queue.shift();
+            console.log(x, y);
+            if (x === end[0] && y === end[1]) {
+                return true;
+            }
+            insert(x - 1, y);
+            insert(x, y - 1);
+            insert(x + 1, y);
+            insert(x, y + 1);
+        }
+        return false;
+    }
+
+    /**
+     * 暂停函数
+     * @param t
+     * @returns {Promise<any>}
+     */
+    function sleep(t){
+        return new Promise(function (resolve) {
+            setTimeout(resolve,t);
+        })
+    }
+
+    document.addEventListener('mousedown', e => {
+        mousedown = true;
+        clear = e.which === 3;
+    });
+    document.addEventListener('mouseup', () => mousedown = false);
+    document.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+</body>
+</html>
