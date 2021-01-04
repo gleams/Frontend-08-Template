@@ -335,7 +335,7 @@
             if (isWin) {
                 if (3 - color === 1) { //上一步棋子
                     alert('白子已胜');
-                }else{
+                } else {
                     alert('黑子已胜');
                 }
                 return;
@@ -371,7 +371,7 @@
                 }
             }
         }
-        outer2:for(let y = 0;y < pattern.length;y++){
+        outer2:for (let y = 0; y < pattern.length; y++) {
             for (let x = 0; x < pattern[0].length; x++) {
                 if (count === 5 && sameNum !== 0) {
                     isWin = true;
@@ -385,37 +385,112 @@
                 }
             }
         }
-
-        outer3:for(let x = 0;x<pattern.length;x++){
-            for(let y = x;y >= 0;y--){
+        // 斜线判断
+        /**
+         [
+             [0,0,0,0,1,0],
+             [0,0,0,1,0,0],
+             [0,0,1,0,0,0],
+             [0,1,0,0,0,0],
+             [1,0,0,0,0,0],
+             [0,0,0,0,0,0],
+         ]
+         */
+        outer3:for (let x = 0; x < pattern.length; x++) {
+            for (let y = x; y >= 0; y--) {
                 if (count === 5 && sameNum !== 0) {
                     isWin = true;
                     break outer3;
                 }
-                if (sameNum === pattern[y][Math.abs(x-y)] && sameNum !== 0) {
+                if (sameNum === pattern[y][Math.abs(x - y)] && sameNum !== 0) {
                     count++;
                 } else {
-                    sameNum = pattern[y][Math.abs(x-y)];
+                    sameNum = pattern[y][Math.abs(x - y)];
                     count = 1;
                 }
             }
         }
-        outer4:for(let x = pattern.length - 1;x>0;x--){
-            for(let y = pattern.length - x;y < pattern.length;y++){
+        // 斜线判断
+        /**
+          [
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,1],
+              [0,0,0,0,1,0],
+              [0,0,0,1,0,0],
+              [0,0,1,0,0,0],
+              [0,1,0,0,0,0],
+          ]
+         */
+        outer4:for (let y = 0; y < pattern.length; y++) {
+            let tempy = y+1;
+            for (let x = pattern.length-1; x > y; x--) {
                 if (count === 5 && sameNum !== 0) {
                     isWin = true;
                     break outer4;
                 }
-                if (sameNum === pattern[y][Math.abs(x-y)] && sameNum !== 0) {
+                if (sameNum === pattern[tempy][x] && sameNum !== 0) {
                     count++;
                 } else {
-                    sameNum = pattern[y][Math.abs(x-y)];
+                    sameNum = pattern[tempy][x];
                     count = 1;
                 }
+                tempy++;
             }
         }
-
-
+        /**
+         [
+             [0,0,1,0,0,0,0],
+             [0,0,0,1,0,0,0],
+             [0,0,0,0,1,0,0],
+             [0,0,0,0,0,1,0],
+             [0,0,0,0,0,0,1],
+             [0,0,0,0,0,0,0],
+             [0,0,0,0,0,0,0]
+         ]
+         */
+        outer5:for (let y = 0; y < pattern.length; y++) {
+            let tempy = 0 ;
+            for (let x = pattern.length-y; x < pattern.length; x++) {
+                if (count === 5 && sameNum !== 0) {
+                    isWin = true;
+                    break outer5;
+                }
+                if (sameNum === pattern[tempy][x] && sameNum !== 0) {
+                    count++;
+                } else {
+                    sameNum = pattern[tempy][x];
+                    count = 1;
+                }
+                tempy++;
+            }
+        }
+        /**
+         [
+             [0,0,0,0,0,0,0],
+             [1,0,0,0,0,0,0],
+             [0,1,0,0,0,0,0],
+             [0,0,1,0,0,0,0],
+             [0,0,0,1,0,0,0],
+             [0,0,0,0,1,0,0],
+             [0,0,0,0,0,1,0]
+         ];
+         */
+        outer6:for (let y = 0; y < pattern.length; y++) {
+            let tempy = y ;
+            for (let x = 0; x < pattern.length - y; x++) {
+                if (count === 5 && sameNum !== 0) {
+                    isWin = true;
+                    break outer6;
+                }
+                if (sameNum === pattern[tempy][x] && sameNum !== 0) {
+                    count++;
+                } else {
+                    sameNum = pattern[tempy][x];
+                    count = 1;
+                }
+                tempy++;
+            }
+        }
     }
 
 
