@@ -66,6 +66,9 @@
         let queue = [start];
         let table = Object.create(map);
 
+        /*
+        * 入队逻辑
+        * */
         async function insert(x, y, pre) {
             //四个边
             if (x < 0 || x >= 100 || y < 0 || y >= 100)
