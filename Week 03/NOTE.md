@@ -32,6 +32,7 @@
 1. 乘法是特殊的加法，只有一项的加法。
 1. EOF是一个结束符。 
 1. `exec`会多次匹配。
+1. 调用 regexp.exec(str) 会返回第一个匹配项，并将紧随其后的位置保存在属性 regexp.lastIndex 中。 -下一次同样的调用会从位置 regexp.lastIndex 开始搜索，返回下一个匹配项，并将其后的位置保存在 regexp.lastIndex 中
 ```js
 var reg = /a/g;
 var str = 'abc_abc_abc'

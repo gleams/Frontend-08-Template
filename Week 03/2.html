@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
+    const dictionary = ['Number', 'Whitespace', 'LineTerminator', '*', '/', '+', '-'];
+
+    /**
+     * Generator 函数返回一个遍历器对象
+     * @param source
+     * @returns {IterableIterator<{type: null, value: null}>}
+     */
+    function* tokenize(source) {
+        let result;
+        let lastIndex;
+        while (true) {
+            //调用 regexp.exec(str) 会返回第一个匹配项，并将紧随其后的位置保存在属性 regexp.lastIndex 中。 -下一次同样的调用会从位置 regexp.lastIndex 开始搜索，返回下一个匹配项，并将其后的位置保存在 regexp.lastIndex 中
+            lastIndex = regexp.lastIndex;
+            result = regexp.exec(source);
+
+            if (!result) break;
+
+            //如果有不匹配的字符就返回。
+            if (regexp.lastIndex - lastIndex > result[0].length)
+                break;
+
+            let token = {
+                type:null,
+                value:null
+            };
+
+            for (let i = 1; i <= dictionary.length; i++) {
+                if (result[i]) {
+                    token.type = dictionary[i - 1];
+                }
+            }
+            token.value = result[0];
+            yield token;
+        }
+
+    }
+
+    for(let token of tokenize('1024 + 10 *25')){
+        console.log(token);
+    }
+
+
+</script>
+</body>
+</html>
