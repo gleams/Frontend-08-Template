@@ -6,9 +6,15 @@
 </head>
 <body>
 <script>
-    function parse(soure) {
+
+    /**
+     * 括号配对查检
+     * @param source
+     * @returns {boolean}
+     */
+    function parse(source) {
         let stack = [];
-        for (let c of soure) {
+        for (let c of source) {
             if (c === '(' || c === '[' || c === '{') {
                 stack.push(c);
             }
