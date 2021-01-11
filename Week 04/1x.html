@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * 适合保存字典树的数据结构是Object或者Map，字典树里保存字符串。
+     */
+    let $ = Symbol('$');
+
+    class Trie {
+        constructor() {
+            // 使用Object.create创建这样避免受到Object.prototype上面的原型上面的一些污染。（本身是字符不存在污染的问题 ，但使用Object.create()更好。）
+            this.root = Object.create(null);
+        }
+
+        /**
+         * 插入字符串
+         * @param word
+         */
+        insert(word) {
+            let node = this.root;
+            for (let c of word) {
+                if (!node[c]) {
+                    node[c] = Object.create(null);
+                }
+                node = node[c];
+            }
+            // 结字符串
+            if (!($ in node)) {
+                node[$] = 0;
+            }
+            node[$]++;
+        }
+
+        most() {
+            let max = 0;
+            let maxWord = null;
+            let visit = (node, word) => {
+                if (node[$] && node[$] > max) {
+                    max = node[$];
+                    maxWord = word;
+                }
+                for (let p in node) {
+                    visit(node[p], word + p);
+                }
+            }
+            visit(this.root, '');
+            console.log(maxWord,max);
+        }
+    }
+
+    /**
+     * 产生随机单词
+     * @param length
+     * @returns {string}
+     */
+    function randomWord(length) {
+        let s = '';
+        for (let i = 0; i < length; i++) {
+            s += String.fromCharCode(Math.random() * 26 + 'a'.charCodeAt(0));
+        }
+        return s;
+    }
+
+    let trie = new Trie();
+    for (let i = 0; i < 100000; i++) {
+        trie.insert(randomWord(4));
+    }
+</script>
+</body>
+</html>
