@@ -45,6 +45,7 @@
                 i++;
             }
             // 把？号\s\S任意字符
+            // 这个正则是否用KMP算法替代？？？自己实现
             let reg = new RegExp(subPattern.replace(/\?/g, '[\\s\\S]'), 'g');
             reg.lastIndex = lastIndex; //把正则的lastIndex，改为之前的lastIndex，接着工作。
 
