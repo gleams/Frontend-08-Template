@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function find(source, pattern) {
+        let starCount = 0;
+        // 计算有多少个星号
+        for (let i = 0; i < pattern.length; i++) {
+            if (pattern[i] === '*') {
+                starCount++;
+            }
+        }
+
+        if (starCount === 0) {
+            for (let i = 0; i < pattern.length; i++) {
+                if (pattern[i] !== source[i] && pattern[i] !== '?')
+                    return false;
+            }
+            return;
+        }
+
+
+        let i = 0; // i pattern的位置
+        let lastIndex = 0; //lastIndex 原字符串的source的位置
+        //第一个星号之前的字符
+        for (i = 0; pattern[i] !== '*'; i++) {
+            if (pattern[i] !== source[i] && pattern[i] !== '?')
+                return false;
+        }
+        //lastIndex 更新到i;
+        lastIndex = i;
+
+        //循环第一段星号，每一个星号一个模式串*ab *abc
+        // starCount - 1 如果只有一个星号，就会当成最后一个星号处理。
+        for (let p = 0; p < starCount - 1; p++) {
+            i++;
+            let subPattern = '';
+            //找到星号
+            while (pattern[i] !== '*') {
+                subPattern += pattern[i];
+                i++;
+            }
+            // 把？号\s\S任意字符
+            let reg = new RegExp(subPattern.replace(/\?/g, '[\\s\\S]'), 'g');
+            reg.lastIndex = lastIndex; //把正则的lastIndex，改为之前的lastIndex，接着工作。
+
+            let result = reg.exec(source);
+            console.log('result',result);
+
+            if (!result)
+                return false;
+            lastIndex = reg.lastIndex;
+        }
+        //匹配最后一节。
+        for (let j = 0; j <= source.length - lastIndex && pattern[pattern.length - j] !== '*'; j++) {
+            if (pattern[pattern.length - j] !== source[source.length - j] && pattern[pattern.length - j] !== '?') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    console.log(find('abcabcabxaac', 'a*b*bx*c'));
+
+</script>
+</body>
+</html>

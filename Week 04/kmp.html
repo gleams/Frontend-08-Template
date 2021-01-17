@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>kmp</title>
+</head>
+<body>
+<script>
+    /**
+     *
+     * @param source
+     * @param pattern
+     * @returns {boolean}
+     */
+    function kmp(source, pattern) {
+        //table跳转表格
+        let table = new Array(pattern.length).fill(0);
+        /**
+         *    table a b c d a b c e
+         *       j  0 0 0 0 0 1 2 3
+         */
+        {
+
+            // abcdabce
+            // i--自重复 从1开始，
+            // j--已重复的字数
+            let i = 1, j = 0;
+            while (i < pattern.length) {
+                if (pattern[i] === pattern[j]) {
+                    ++j, ++i;
+                    table[i] = j;
+                } else {
+                    if (j > 0) {
+                        j = table[j];
+                    } else {
+                        ++i;
+                    }
+                }
+            }
+            console.log('table', table);
+        }
+
+        {
+            //i 是source的位置
+            //j pattern 串的位置
+            let i = 0, j = 0;
+            while (i < source.length) {
+                if (pattern[j] === source[i]) {
+                    ++i, ++j;
+                } else {
+                    if (j > 0) {
+                        j = table[j];
+                    } else {
+                        ++i;
+                    }
+                }
+                if (j === pattern.length) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    // console.log(kmp('', 'abcdabc'));
+    // a a b a a a c
+    // 0 0 1 0 1 2 2
+    console.log(kmp('', 'aabaaac'));
+    console.log(kmp('Hello', 'll'));
+    console.log(kmp('abacadababc', 'ab'));
+</script>
+</body>
+</html>
