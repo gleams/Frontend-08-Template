@@ -9,37 +9,19 @@
     let object = {
         a: 1,
         b: 2
-    }
+    };
     let callbacks = [];
-
-    /* let po = new Proxy(object,{
-         set(obj,prop,val){
-             console.log(obj,prop,val);
-         }
-     })*/
-    let usedReactivties = [];
-
+    // proxy 代理。
     let po = reactive(object);
 
-    function effect(callback) {
-        // callbacks.push(callback);
-        usedReactivties = [];
-        callback();
-        console.log(usedReactivties);
-    }
-
-
-    effect(()=>{
+    effect(() => {
         console.log(po.a);
     });
 
+    function effect(callback) {
+        callbacks.push(callback);
+    }
 
-
-    /**
-     * 包装proxy
-     * @param object
-     * @returns {*}
-     */
     function reactive(object) {
         return new Proxy(object, {
             set(obj, prop, val) {
@@ -48,10 +30,10 @@
                     callback();
                 }
                 return obj[prop];
+
             },
             get(obj, prop) {
-                // console.log(obj, prop);
-                usedReactivties.push([obj,prop]);
+                console.log(obj, prop);
                 return obj[prop];
             }
         })

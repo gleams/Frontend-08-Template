@@ -10,11 +10,13 @@
         a: 1,
         b: 2
     }
+    // proxy 代理。
     let po = new Proxy(object, {
         set(obj, prop, val) {
             console.log(obj,prop,val);
         }
-    })
+    });
+    po.a = 20;
 </script>
 </body>
 </html>
