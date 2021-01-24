@@ -89,11 +89,6 @@ javascript 中的内部方法，这所谓的"内部方法"，它描述了最底�
          object/keys/values/entries
     </td>
 </tr>
-<tr>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
 </table>
 
 
