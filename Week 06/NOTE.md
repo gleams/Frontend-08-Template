@@ -50,4 +50,24 @@
 - 3型 正则文法
     - `<A>::=<A>?`
     - `<A>::=?<A>X`
+## Object
+Object对象类型，在JavaScript运行时，原生对象的描述方式非常简单，我们只需要关心原型和属性两个部分
+
+## 原型
+- 属性
+- JavaScript属性是一个key-value对，key可以是Symbol，也可以是字符串，属性主要分为两种
+- 数据属性（Data Property），一般同于描述状态，当数据属性中如果存储函数，也可以用来描述行为 访问器属性 （Accessor Property），一般用户描述行为
+
+## API相关
+Object.defineProperty Objetc.create/setPrototypeOf/getPrototypeOf new / class / extends neew / function / prototype
+
+## Object[[call]]
+JavaScript中存在一些特殊的对象，如函数对象，除了一般的对象属性和原型，函数对象还有一个行为[[call]]，可以利用JavaScript中的funtion关键字、箭头运算符或者Function构造器创建的对象，会有[[call]]这个行为，当用类似f()的语法吧对象仿作函数调用时，会方位到[[call]]这个行为，如果对象中没有[[call]]行为，则会报错
+
+## 数组对象
+- Object.prototype（没有setPrototypeOf方法）
+- Host Object（也可以支持[[call]] [[construct]]方法）
+## Symbol
+- 一般用于对象的属性名表示，一般常用的如
+`Symbol、Symbol.for`
     
