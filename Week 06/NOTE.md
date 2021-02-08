@@ -50,177 +50,24 @@
 - 3型 正则文法
     - `<A>::=<A>?`
     - `<A>::=?<A>X`
-## 语言的分类
-- 形式语言-用途
-    - 数据描述语言`JSON,HTML,XAML,SQL,CSS`(都有数据描述的性质，本身没有办法编程的)
-    - 编程语言`C,C++,JAVA,C#,Python,JavaScript,Ruby,Perl,Lisp,T-SQL,Clojure,Haskell`
-- 形式语言-表达方式
-    - 声明式语言`JSON,HTML,XAML,SQL,CSS,Lisp,Clojure,Haskell`
-    - 命令型语言`C,C++,Java,C#,Python,Ruby,Perl,JavaScript`
-    
-## 图灵完备性
--  命令式-图灵机
-    - goto
-    - if和while
-- 声明式-lambda
-    - 递归
-
-所有的可计算的问题都可用来描述的，这样的语言就具有图灵完备性。
-
-## 动态与静态
-- 动态:
-    - 在用户的设备/在线服务器上
-    - 产品实际运行时
-    -Runtime
-- 静态：
-    - 在程序员的设备上
-    - 产品开发时
-    - Compiletime
-    
-## 类型系统
-- 动态类型系统与静态类型系统
-- 强类型与弱类型
-    - String + Number
-    - String == Boolean
-- 复合类型
-    - 结构体
-    - 函数签名
-- 子类型
-- 泛型
-    - 逆变/协变
-
-## 一般命令式编程语言
-<table>
-    <tr>
-        <th>
-            Atom(原子集)
-        </th>
-        <th>
-            Expression(表达式)
-        </th>
-        <th>
-            Statement(语句)
-        </th>
-        <th>
-            Structure(结构化)
-        </th>
-        <th>
-            Program(模块)
-        </th>
-    </tr>
-    <tr>
-        <td>
-        - Identifier<br/>
-        - Literal
-        </td>
-        <td>
-        - Atom<br/>
-        - Operator<br/>
-        - Punctuator<br/>
-        </td>
-        <td>
-        - Expression<br/>
-        - Keyword<br/>
-        - Punctuator
-        </td>
-        <td>
-        - Function<br/>
-        - Class<br/>
-        - Process<br/>
-        - Namespace
-        - ......
-        </td>
-        <td>
-        - Program<br/>
-        - Module<br/>
-        - Package<br/>
-        - Library<br/>
-        </td>
-    </tr>
-</table>
- 
-## 重学JavaScript 
-语法 -> 语义 -> 运行时
-
-## JavaScript中最小的单位：字面值和运行时的类型
-## Atom 原子
-- Grammar
-    - Literal
-    - Variable
-    - Keywords
-    - Whitespace
-    - Line Terminator
-- Runtime
-    - Types
-    - Execution Context
-    
-## JavaScript中基本类型
-1. Number
-1. String
-1. Boolean
-1. Object
-1. Null(有值但为空)
-1. Undefined(定义了，没有赋值)
-1. Symbol(用于Object属性名)
-
-### Number
-- IEEE 754 Double Float
-    - Sign(1)
-    - Exponent(11)
-    - Fraction(52)
-### Number-Grammar
-- DecimalLiteral
-    - 0
-    - 0.
-    - .2
-    - 1e3
-- BinaryIntegerLiteral
-    - 0b111
-- OctalIntegerLiteral
-    - 0o10
-- HexIntegerLiteral
-    - 0xff
-    
-    
-**语法冲突案例**
-- `0.toString()`会报错
-- `0 .toString()`或者`0..String()`就不会报错
-
-
-### String
-- Character:一个一个的字符
-- Code Point
-- Encoding
-
-字符集
-
-- ASCII
-- Unicode
-- UCS
-- GB
-    - GB2312
-    - GBK(GB13000)
-    - GB18030
-- ISO-8859
-- BIG5
-
-编码
-- UTF
-UTF8
-
-## Boolean（没有特别的）
-- true
-- false
-
-## Null & Undefined;
-- null
-- undefined
-- void 0;
-
-null 是关键字，早期时候undefined是变量，是可以赋值的。
-
 ## Object
+Object对象类型，在JavaScript运行时，原生对象的描述方式非常简单，我们只需要关心原型和属性两个部分
 
+## 原型
+- 属性
+- JavaScript属性是一个key-value对，key可以是Symbol，也可以是字符串，属性主要分为两种
+- 数据属性（Data Property），一般同于描述状态，当数据属性中如果存储函数，也可以用来描述行为 访问器属性 （Accessor Property），一般用户描述行为
 
+## API相关
+Object.defineProperty Objetc.create/setPrototypeOf/getPrototypeOf new / class / extends neew / function / prototype
 
+## Object[[call]]
+JavaScript中存在一些特殊的对象，如函数对象，除了一般的对象属性和原型，函数对象还有一个行为[[call]]，可以利用JavaScript中的funtion关键字、箭头运算符或者Function构造器创建的对象，会有[[call]]这个行为，当用类似f()的语法吧对象仿作函数调用时，会方位到[[call]]这个行为，如果对象中没有[[call]]行为，则会报错
 
+## 数组对象
+- Object.prototype（没有setPrototypeOf方法）
+- Host Object（也可以支持[[call]] [[construct]]方法）
+## Symbol
+- 一般用于对象的属性名表示，一般常用的如
+`Symbol、Symbol.for`
+    
