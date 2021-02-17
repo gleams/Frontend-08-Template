@@ -377,3 +377,14 @@ void function() {
 console.log(a);
 ```
 
+## JS执行粒度（运行时）
+- 宏任务:就是传给JavaScript引擎的任务
+- 微任务(promise)：就是在JavaScript引擎内部的任务
+- 函数调用（Execution Context）
+- 语句/声明（Completion Record）
+- 表达式（Reference）
+- 直接量/变量/this
+
+## Realm
+
+在JS中，函数表达式和对象直接量均会创建对象。使用`.`做隐式转换也会创建对象。这些对象也是有原型的，如果我们没有Realm,就不知道它们的原型是什么。
