@@ -25,3 +25,31 @@ while(input){
 }
 ```
 
+## ISO-OSI七层网络模型
+ <table>
+ <tr>
+    <td>应用</td>
+    <td rowspan='3'>HTTP</td>
+ </tr>
+ <tr>
+    <td>表示</td>
+ </tr>
+ <tr>
+    <td>会话</td>
+ </tr>
+ <tr>
+    <td> 传输</td>
+    <td>TCP</td>
+ </tr>
+ <tr>
+    <td>网络</td>
+    <td>Internet</td>
+ </tr>
+ <tr>
+    <td>数据链路</td>
+    <td rowspan='2'>4G/5G/WiFi</td>
+ </tr>
+ <tr>
+    <td>物理层</td>
+ </tr>
+ </table>
