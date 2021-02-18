@@ -53,3 +53,38 @@ while(input){
     <td>物理层</td>
  </tr>
  </table>
+ 
+## TCP的一些基础知识
+
+- 流
+- 接口
+- require('net')
+
+
+## ip的基础
+- 包
+- ip地址
+- libnet/libcap  
+
+## HTTP
+- Request
+- Response
+
+## HTTP的组成部分
+- method:常见的是POST和GET
+
+<table>
+    <tr>
+        <td>POST/HTTP/1.1</td>
+        <td>Request line</td>
+    </tr>
+    <tr>
+            <td>Host:127.0.0.1<br/>Content-Type:application/x-www-form-urlencoded</td>
+            <td>headers</td>
+    </tr>
+     <tr>
+             <td>field1=aaa&code=x%3D1</td>
+             <td>Body</td>
+     </tr>
+</table>
+
