@@ -1,4 +1,4 @@
-const net  = require('net')
+const net = require('net')
 
 class Request {
     constructor(options) {
@@ -15,18 +15,20 @@ class Request {
         if (this.headers['Content-Type'] === 'application/json') {
             this.bodyText = JSON.stringify(this.body)
         } else if (this.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
-            let text = Object.keys(this.body).map(k => `${k}=${encodeURIComponent(this.body[k])}`).join('&')
+            let text = Object.keys(this.body).map(k => `${k}=${encodeURIComponent(this.body[k])}`).join('&');
             this.bodyText = text
         }
 
         this.headers['Content-Length'] = this.bodyText.length
     }
+
     toString() {
         return `${this.method} ${this.path} HTTP/1.1\r
 ${Object.keys(this.headers).map(k => `${k}: ${this.headers[k]}`).join('\r\n')}\r
 \r
 ${this.bodyText}`
     }
+
     send(connection) {
         return new Promise((resolve, reject) => {
             const parser = new ResponseParser
@@ -58,27 +60,29 @@ ${this.bodyText}`
 
 class ResponseParser {
     constructor() {
-        this.WAITING_STATUS_LINE = 0
-        this.WAITING_STATUS_LINE_END = 1
-        this.WAITING_HEADER_NAME = 2
-        this.WAITING_HEADER_SPACE = 3
-        this.WAITING_HEADER_VALUE = 4
-        this.WAITING_HEADER_LINE_END = 5
-        this.WAITING_HEADER_BLOCK_END = 6
-        this.WAITING_BODY = 7
+        this.WAITING_STATUS_LINE = 0;
+        this.WAITING_STATUS_LINE_END = 1;
+        this.WAITING_HEADER_NAME = 2;
+        this.WAITING_HEADER_SPACE = 3;
+        this.WAITING_HEADER_VALUE = 4;
+        this.WAITING_HEADER_LINE_END = 5;
+        this.WAITING_HEADER_BLOCK_END = 6;
+        this.WAITING_BODY = 7;
 
-        this.current = this.WAITING_STATUS_LINE
-        this.statusLine= ''
-        this.headers = {}
-        this.headerName = ''
-        this.headerValue = ''
+        this.current = this.WAITING_STATUS_LINE;
+        this.statusLine = '';
+        this.headers = {};
+        this.headerName = '';
+        this.headerValue = '';
         this.bodyParser = null
     }
+
     get isFinished() {
-        return this.bodyParser && this.bodyParser.isFinished
+        return this.bodyParser && this.bodyParser.isFinished;
     }
+
     get response() {
-        this.statusLine.match(/HTTP\/1.1 ([0-9]+) ([\s\S]+)/)
+        this.statusLine.match(/HTTP\/1.1 ([0-9]+) ([\s\S]+)/);
         return {
             statusCode: RegExp.$1,
             statusText: RegExp.$2,
@@ -86,11 +90,13 @@ class ResponseParser {
             body: this.bodyParser.content.join('')
         }
     }
+
     receive(string) {
         for (let i = 0; i < string.length; i++) {
-            this.receiveChar(string.charAt(i))
+            this.receiveChar(string.charAt(i));
         }
     }
+
     receiveChar(char) {
         if (this.current === this.WAITING_STATUS_LINE) {
             if (char === '\r') {
@@ -119,10 +125,10 @@ class ResponseParser {
             }
         } else if (this.current === this.WAITING_HEADER_VALUE) {
             if (char === '\r') {
-                this.current = this.WAITING_HEADER_LINE_END
-                this.headers[this.headerName] = this.headerValue
-                this.headerName = ''
-                this.headerValue = ''
+                this.current = this.WAITING_HEADER_LINE_END;
+                this.headers[this.headerName] = this.headerValue;
+                this.headerName = '';
+                this.headerValue = '';
             } else {
                 this.headerValue += char
             }
@@ -142,16 +148,17 @@ class ResponseParser {
 
 class TrunkedBodyParser {
     constructor() {
-        this.WAITING_LENGTH = 0
-        this.WAITING_LENGTH_END = 1
-        this.READING_TRUNK = 2
-        this.WAITING_NEW_LINE = 3
-        this.WAITING_NEW_LINE_END = 4
-        this.length = 0
-        this.content = []
-        this.isFinished = false
+        this.WAITING_LENGTH = 0;
+        this.WAITING_LENGTH_END = 1;
+        this.READING_TRUNK = 2;
+        this.WAITING_NEW_LINE = 3;
+        this.WAITING_NEW_LINE_END = 4;
+        this.length = 0;
+        this.content = [];
+        this.isFinished = false;
         this.current = this.WAITING_LENGTH
     }
+
     receiveChar(char) {
         if (this.current === this.WAITING_LENGTH) {
             if (char === '\r') {
@@ -175,7 +182,7 @@ class TrunkedBodyParser {
             }
 
             if (this.isFinished) {
-                return ;
+                return;
             }
         } else if (this.current === this.WAITING_NEW_LINE) {
             if (char === '\r') {
